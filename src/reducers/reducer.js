@@ -1,19 +1,16 @@
 // @flow
 import { combineReducers } from 'redux';
-import NavigationStateReducer from './navigation';
-import CalendarReducer from './calendar';
-import GridReducer from './grid';
-// ## Generator Reducer Imports
-import GalleryReducer from './gallery';
-import AuthReducer from './auth';
+// import NavigationStateReducer from './navigation';
+// import CalendarReducer from './calendar';
+// import GridReducer from './grid';
+// import GalleryReducer from './gallery';
+import AuthReducer from '../containers/Auth/AuthReducer';
 
-export default combineReducers({
-  navigation: NavigationStateReducer,
-  calendar: CalendarReducer,
-  grid: GridReducer,
-  // ## Generator Reducers
-
-  gallery: GalleryReducer,
+export const allReducers = combineReducers({
+  // navigation: NavigationStateReducer,
+  // calendar: CalendarReducer,
+  // grid: GridReducer,
+  // gallery: GalleryReducer,
 
   auth: AuthReducer,
 });

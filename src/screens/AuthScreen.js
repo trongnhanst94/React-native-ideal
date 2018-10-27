@@ -11,24 +11,28 @@ import {
   TouchableOpacity,
   ImageBackground,
   Dimensions,
+  TextInput
 } from 'react-native';
 
+import { Button } from 'react-native-elements';
 import { Fonts, Colors } from '../constants';
-import { TextInput, Button } from '../components';
 
 const FORM_STATES = {
   LOGIN: 0,
-  REGISTER: 1,
 };
 
 export default class AuthScreen extends React.Component {
-  state = {
-    anim: new Animated.Value(0),
+  constructor(props){
+    super(props);
 
-    // Current visible form
-    formState: FORM_STATES.LOGIN,
-    isKeyboardVisible: false,
-  };
+    this.state = {
+      anim: new Animated.Value(0),
+  
+      // Current visible form
+      formState: FORM_STATES.LOGIN,
+      isKeyboardVisible: false,
+    };
+  }
 
   componentWillMount() {
     this.keyboardDidShowListener = Keyboard.addListener(Platform.select({ android: 'keyboardDidShow', ios: 'keyboardWillShow' }), this._keyboardDidShow.bind(this));
@@ -88,7 +92,7 @@ export default class AuthScreen extends React.Component {
           <Animated.Image
             resizeMode="contain"
             style={[styles.logo, this.state.isKeyboardVisible && { height: 90 }, this.fadeIn(0)]}
-            source={require('../../assets/images/white-logo.png')}
+            source={require('../../assets/images/logo_rn_ideal_white.png')}
           />
         </View>
 
@@ -100,16 +104,6 @@ export default class AuthScreen extends React.Component {
             autoCorrect={false}
           />
 
-          { this.state.formState === FORM_STATES.REGISTER &&
-            <TextInput
-              placeholder="Email"
-              style={styles.textInput}
-              autoCapitalize="none"
-              autoCorrect={false}
-              keyboardType="email-address"
-            />
-          }
-
           <TextInput
             placeholder="Password"
             secureTextEntry
@@ -118,36 +112,38 @@ export default class AuthScreen extends React.Component {
 
           <Animated.View style={[styles.section, styles.bottom, this.fadeIn(700, -20)]}>
             <Button
-              secondary
-              rounded
-              style={{ alignSelf: 'stretch', marginBottom: 10, }}
-              caption={this.state.formState === FORM_STATES.LOGIN ? 'Login' : 'Register'}
-              onPress={() => this.props.authStateActions.skipLogin()}
-            />
+            raised
+            icon={{name: 'cached'}}
+            buttonStyle = {{ backgroundColor: Colors.pinkred }}
+            title='ĐĂNG NHẬP'
+            onPress={() => this.props.authStateActions.skipLogin()} />
 
             { !this.state.isKeyboardVisible && (
               <View style={styles.socialLoginContainer}>
-                <Button
+                {/* <Button
                   style={styles.socialButton}
-                  bordered
-                  rounded
-                  icon={require('../../assets/images/google-plus.png')}
-                  onPress={() => this.props.authStateActions.skipLogin()}
+                  title='aaa2'
+                  // bordered
+                  // rounded
+                  // icon={require('../../assets/images/google-plus.png')}
+                  // onPress={() => this.props.authStateActions.skipLogin()}
                 />
                 <Button
                   style={[styles.socialButton, styles.socialButtonCenter]}
-                  bordered
-                  rounded
-                  icon={require('../../assets/images/twitter.png')}
-                  onPress={() => this.props.authStateActions.skipLogin()}
+                  title='aaa3'
+                  // bordered
+                  // rounded
+                  // icon={require('../../assets/images/twitter.png')}
+                  // onPress={() => this.props.authStateActions.skipLogin()}
                 />
                 <Button
                   style={styles.socialButton}
-                  bordered
-                  rounded
-                  icon={require('../../assets/images/facebook.png')}
-                  onPress={() => this.props.authStateActions.skipLogin()}
-                />
+                  title='aaa4'
+                  // bordered
+                  // rounded
+                  // icon={require('../../assets/images/facebook.png')}
+                  // onPress={() => this.props.authStateActions.skipLogin()}
+                />*/}
               </View>
             )}
 
@@ -162,7 +158,7 @@ export default class AuthScreen extends React.Component {
                 <Text style={{color: Colors.white, fontFamily: Fonts.primaryRegular}}>{isRegister ? 'Already have an account?' : 'Don\'t have an account?' }</Text>
                 <Text style={{color: Colors.white, fontFamily: Fonts.primaryBold, marginLeft: 5}}>{isRegister ? 'Login' : 'Register' }</Text>
               </TouchableOpacity>
-            )}
+            )} 
           </Animated.View>
         </Animated.View>
         </ImageBackground>
@@ -203,6 +199,7 @@ const styles = StyleSheet.create({
   textInput: {
     alignSelf: 'stretch',
     marginTop: 20,
+    fontSize: 20
   },
   logo: {
     height: 150,
