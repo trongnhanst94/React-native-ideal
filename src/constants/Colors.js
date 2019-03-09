@@ -18,6 +18,12 @@ const blueVersion = {
   black: '#000000',
   green: '#6DD0A3',
   yellow: '#ffc247',
+  pinkred: '#DC143C',
+  cor1: '#7CACD4',
+  cor2: '#9CC1D9',
+  cor3: '#36485E',
+  cor4: '#F2EFC2',
+  cor5: '#FD5274',
 };
 
 export default blueVersion;

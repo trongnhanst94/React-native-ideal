@@ -2,60 +2,47 @@ import React from 'react';
 import {
   StyleSheet,
   View,
-  Platform,
-  Image,
   TouchableOpacity,
-  Linking,
   ImageBackground,
+  Text
 } from 'react-native';
 
 import { Fonts, Colors } from '../constants';
-import Button from '../components/Button';
-import {
-  Text,
-  Title,
-} from '../components/StyledText';
+// import {
+//   Text,
+// } from '../compoments/StyledText';
 
-export default function HomeScreen({ isExtended, setIsExtended }) {
-  const rnsUrl = 'https://reactnativestarter.com';
-  const handleClick = () => {
-    Linking.canOpenURL(rnsUrl).then(supported => {
-      if (supported) {
-        Linking.openURL(rnsUrl);
-      } else {
-        console.log("Don't know how to open URI: " + rnsUrl);
-      }
-    });
-  };
-
-  return (
-    <View style={styles.container}>
-      <ImageBackground
-        source={require('../../assets/images/background.png')}
-        style={styles.bgImage}
-        resizeMode="cover"
-      >
-        <View style={styles.section}>
-          <Text size={20} white>Home</Text>
-        </View>
-        <View style={styles.section}>
-          <Text color="#19e7f7" size={15}>The smartest Way to build your mobile app</Text>
-          <Text size={30} bold white style={styles.title}>React Native Starter</Text>
-        </View>
-        <View style={[styles.section, styles.sectionLarge]}>
-          <Text color="#19e7f7" hCenter size={15} style={styles.description}> A powerful starter project that bootstraps development of your mobile application and saves you $20 000*</Text>
-          <View style={styles.priceContainer}>
-            <View style={{ flexDirection: 'row' }}>
-              <Text white bold size={50} style={styles.price}>{isExtended ? '$199.95' : '$49.95'}</Text>
-            </View>
-            <TouchableOpacity style={styles.priceLink} onPress={() => isExtended ? setIsExtended(false) : setIsExtended(true)}>
-              <Text white size={14}>{isExtended ? 'Multiple Applications License' : 'Single Application License'}</Text>
-            </TouchableOpacity>
+export default class HomeScreen extends React.Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <ImageBackground
+          source={require('../../assets/images/background.png')}
+          style={styles.bgImage}
+          resizeMode="cover"
+        >
+          <View style={styles.section}>
+            <Text size={20} white>Home</Text>
           </View>
-        </View>
-      </ImageBackground>
-    </View>
-  );
+          <View style={styles.section}>
+            <Text color="#19e7f7" size={15}>The smartest Way to build your mobile app</Text>
+            <Text size={30} bold white style={styles.title}>React Native Starter</Text>
+          </View>
+          <View style={[styles.section, styles.sectionLarge]}>
+            <Text color="#19e7f7" hCenter size={15} style={styles.description}> A powerful starter project that bootstraps development of your mobile application and saves you $20 000*</Text>
+            <View style={styles.priceContainer}>
+              <View style={{ flexDirection: 'row' }}>
+                <Text white bold size={50} style={styles.price}>{'$199.95'}</Text>
+              </View>
+              <TouchableOpacity style={styles.priceLink}>
+                <Text white size={14}>{'Multiple Applications License'}</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </ImageBackground>
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({

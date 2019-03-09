@@ -8,17 +8,6 @@ import { StackNavigator } from 'react-navigation';
 
 import MainTabNavigator from './MainTabNavigator';
 
-import GalleryScreen from '../containers/GalleryScreen';
-
-// To use this screens please see the full version at https://reactnativestarter.com
-// import ProfileScreen from '../containers/ProfileScreen';
-// import ArticleScreen from '../containers/ArticleScreen';
-// import ChatScreen from '../containers/chat/ChatScreen';
-// import MessagesScreen from '../containers/chat/MessagesScreen';
-// import ChartsScreen from '../containers/ChartsScreen';
-
-import AvailableInFullVersion from '../screens/AvailableInFullVersion';
-
 import { Colors, Fonts } from '../constants';
 
 const RootStackNavigator = StackNavigator(
@@ -26,42 +15,42 @@ const RootStackNavigator = StackNavigator(
     Main: {
       screen: MainTabNavigator,
     },
-    Profile: {
-      screen: AvailableInFullVersion,
-      navigationOptions: {
-        header: null,
-      }
-    },
-    Gallery: {
-      screen: GalleryScreen,
-      navigationOptions: {
-        title: 'Gallery',
-      }
-    },
-    Article: {
-      screen: AvailableInFullVersion,
-      navigationOptions: {
-        header: null,
-      },
-    },
-    Chat: {
-      screen: AvailableInFullVersion,
-      navigationOptions: {
-        header: null,
-      },
-    },
-    Messages: {
-      screen: AvailableInFullVersion,
-      navigationOptions: {
-        header: null,
-      },
-    },
-    Charts: {
-      screen: AvailableInFullVersion,
-      navigationOptions: {
-        header: null,
-      },
-    }
+    // Profile: {
+    //   screen: AvailableInFullVersion,
+    //   navigationOptions: {
+    //     header: null,
+    //   }
+    // },
+    // Gallery: {
+    //   screen: GalleryScreen,
+    //   navigationOptions: {
+    //     title: 'Gallery',
+    //   }
+    // },
+    // Article: {
+    //   screen: AvailableInFullVersion,
+    //   navigationOptions: {
+    //     header: null,
+    //   },
+    // },
+    // Chat: {
+    //   screen: AvailableInFullVersion,
+    //   navigationOptions: {
+    //     header: null,
+    //   },
+    // },
+    // Messages: {
+    //   screen: AvailableInFullVersion,
+    //   navigationOptions: {
+    //     header: null,
+    //   },
+    // },
+    // Charts: {
+    //   screen: AvailableInFullVersion,
+    //   navigationOptions: {
+    //     header: null,
+    //   },
+    // }
   },
   {
     navigationOptions: ({ navigation }) => ({
