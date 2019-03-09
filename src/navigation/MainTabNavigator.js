@@ -68,16 +68,16 @@ export default TabNavigator(
     },
     Calendar: {
       screen: CalendarScreen,
-      navigationOptions: {
-        header: (
-          <View style={styles.headerContainer}>
-            <Image
-              style={styles.headerImage}
-              source={hederBackground} />
-            <Text style={styles.headerCaption}>Calendar</Text>
-          </View>
-        ),
-      },
+      // navigationOptions: {
+      //   header: (
+      //     <View style={styles.headerContainer}>
+      //       <Image
+      //         style={styles.headerImage}
+      //         source={hederBackground} />
+      //       <Text style={styles.headerCaption}>Calendar</Text>
+      //     </View>
+      //   ),
+      // },
     },
     Grids: {
       screen: GridsScreen,
