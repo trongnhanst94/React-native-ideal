@@ -6,20 +6,16 @@ import {
   Animated,
   Keyboard,
   Platform,
-  KeyboardAvoidingView,
   LayoutAnimation,
   TouchableOpacity,
   ImageBackground,
   Dimensions,
   TextInput
 } from 'react-native';
-
 import { Button } from 'react-native-elements';
-import { Fonts, Colors } from '../constants';
+import { Fonts, Colors, Messages } from '../constants';
 
-const FORM_STATES = {
-  LOGIN: 0,
-};
+
 
 export default class AuthScreen extends React.Component {
   constructor(props){
@@ -27,10 +23,10 @@ export default class AuthScreen extends React.Component {
 
     this.state = {
       anim: new Animated.Value(0),
-  
-      // Current visible form
-      formState: FORM_STATES.LOGIN,
       isKeyboardVisible: false,
+      username: '',
+      password: '',
+      message: ''
     };
   }
 
@@ -58,6 +54,23 @@ export default class AuthScreen extends React.Component {
     this.setState({ isKeyboardVisible: false });
   }
 
+  _isCheckValid = () => {
+    const { username, password } = this.state;
+    if (username === '' || password === '') {
+      this.setState({ message: Messages.AuthScreen.required })
+      return false;
+    } else {
+      return true;
+    };
+  }
+
+  _onPressButton = () => {
+    const { username, password } = this.state;
+    if (this._isCheckValid()) {
+      this.props.authStateActions(username, password);
+    }
+  }
+
   fadeIn(delay, from = 0) {
     const { anim } = this.state;
     return {
@@ -77,9 +90,6 @@ export default class AuthScreen extends React.Component {
   }
 
   render() {
-    const TopComponent = Platform.select({ ios: KeyboardAvoidingView, android: View });
-    const isRegister = this.state.formState === FORM_STATES.REGISTER;
-
     return (
       <View style={[styles.container, { paddingBottom: this.state.isKeyboardVisible ? 220 : 0 }]}>
         <ImageBackground
@@ -102,61 +112,37 @@ export default class AuthScreen extends React.Component {
             style={styles.textInput}
             autoCapitalize="none"
             autoCorrect={false}
+            value={this.state.username}
+            onChange={(e) => this.setState({ username: e.nativeEvent.text })}
           />
 
           <TextInput
             placeholder="Password"
             secureTextEntry
             style={styles.textInput}
+            value={this.state.password}
+            onChange={(e) => this.setState({ password: e.nativeEvent.text })}
           />
+
+          <Text style={{color: Colors.white, fontFamily: Fonts.primaryRegular, paddingTop: 20}}>{this.state.message}</Text>
 
           <Animated.View style={[styles.section, styles.bottom, this.fadeIn(700, -20)]}>
             <Button
             raised
             icon={{name: 'cached'}}
-            buttonStyle = {{ backgroundColor: Colors.pinkred }}
+            buttonStyle = {{ backgroundColor: Colors.cor5 }}
             title='ĐĂNG NHẬP'
-            onPress={() => this.props.authStateActions.skipLogin()} />
-
-            { !this.state.isKeyboardVisible && (
-              <View style={styles.socialLoginContainer}>
-                {/* <Button
-                  style={styles.socialButton}
-                  title='aaa2'
-                  // bordered
-                  // rounded
-                  // icon={require('../../assets/images/google-plus.png')}
-                  // onPress={() => this.props.authStateActions.skipLogin()}
-                />
-                <Button
-                  style={[styles.socialButton, styles.socialButtonCenter]}
-                  title='aaa3'
-                  // bordered
-                  // rounded
-                  // icon={require('../../assets/images/twitter.png')}
-                  // onPress={() => this.props.authStateActions.skipLogin()}
-                />
-                <Button
-                  style={styles.socialButton}
-                  title='aaa4'
-                  // bordered
-                  // rounded
-                  // icon={require('../../assets/images/facebook.png')}
-                  // onPress={() => this.props.authStateActions.skipLogin()}
-                />*/}
-              </View>
-            )}
+            onPress={() => this._onPressButton()} />
 
             { !this.state.isKeyboardVisible && (
               <TouchableOpacity
                 onPress={() => {
                   LayoutAnimation.spring();
-                  this.setState({ formState: isRegister ? FORM_STATES.LOGIN : FORM_STATES.REGISTER });
                 }}
                 style={{paddingTop: 30, flexDirection: 'row' }}
               >
-                <Text style={{color: Colors.white, fontFamily: Fonts.primaryRegular}}>{isRegister ? 'Already have an account?' : 'Don\'t have an account?' }</Text>
-                <Text style={{color: Colors.white, fontFamily: Fonts.primaryBold, marginLeft: 5}}>{isRegister ? 'Login' : 'Register' }</Text>
+                <Text style={{color: Colors.white, fontFamily: Fonts.primaryRegular}}>Don't have an account?</Text>
+                <Text style={{color: Colors.white, fontFamily: Fonts.primaryBold, marginLeft: 5}}>Register</Text>
               </TouchableOpacity>
             )} 
           </Animated.View>
@@ -182,6 +168,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    paddingLeft: 10,
+    paddingRight: 10
   },
   middle: {
     flex: 2,
@@ -199,7 +187,12 @@ const styles = StyleSheet.create({
   textInput: {
     alignSelf: 'stretch',
     marginTop: 20,
-    fontSize: 20
+    fontSize: 17,
+    color: Colors.gray,
+    backgroundColor: Colors.white,
+    borderRadius: 10,
+    padding: 10,
+    opacity: 0.7
   },
   logo: {
     height: 150,

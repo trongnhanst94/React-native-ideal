@@ -1,98 +1,56 @@
-// Initial
+import { 
+  LOGGED_IN_REQUEST,
+  LOGGED_IN_SUCCESS,
+  LOGGED_IN_ERROR
+} from '../Auth/AuthAction'
 
+// Initial
 const initialState = {
   isLogin: false,
   isInitial: false,
-  userName: null,
-  passWord: null,
+  id: null,
+  img: null,
+  ten: null,
   level: null,
-  fullName: null,
-  avatar: null,
-  message: null
+  created: null,
+  message: null,
+  ma_user: null,
+  updated: null,
+  password: null,
+  chucdanh: null,
+  username: null,
+  shortName: null,
+  trangthai: null,
 };
 
-// Constant actions
-export const LOGGED_IN_REQUEST = 'LOGGED_IN_REQUEST';
-export const LOGGED_IN_SUCCESS = 'LOGGED_IN_SUCCESS';
-export const LOGGED_IN_ERROR = 'LOGGED_IN_ERROR';
-export const LOGGED_OUT_REQUEST = 'LOGGED_OUT_REQUEST';
-export const LOGGED_OUT_SUCCESS = 'LOGGED_OUT_SUCCESS';
-export const LOGGED_OUT_ERROR = 'LOGGED_OUT_ERROR';
-
-// Action creators
-export const loggedInRequest = (userData) => {
-  return {
-    type: LOGGED_IN_REQUEST,
-    payload: userData
-  };
-}
-export const loggedInSuccess = (userData) => {
-  return {
-    type: LOGGED_IN_SUCCESS,
-    payload: userData
-  };
-}
-export const loggedInError = (userData) => {
-  return {
-    type: LOGGED_IN_ERROR,
-    payload: userData
-  };
-}
-
-
-export const loggedOutRequest = (userData) => {
-  return {
-    type: LOGGED_OUT_REQUEST,
-    payload: userData
-  };
-}
-export const loggedOutSuccess = (userData) => {
-  return {
-    type: LOGGED_OUT_SUCCESS,
-    payload: userData
-  };
-}
-export const loggedOutError = () => {
-  return {
-    type: LOGGED_OUT_ERROR
-  };
-}
 
 
 // Reducer
 export default AuthStateReducer = (state = initialState, actions = {}) => {
-  const { data } = actions;
   switch (actions.type) {
-    case LOGGED_IN_REQUEST:
-      return { ...state, 
-        isLogin: false,
-        isInitial: false,
-        userName: data.userName,
-        passWord: data.passWord,
-        level: data.level,
-        fullName: data.fullName,
-        avatar: data.avatar,
-        message: 'Logging in...'
-      };
-
     case LOGGED_IN_SUCCESS:
       return { ...state, 
         isLogin: true,
         isInitial: false,
-        userName: data.userName,
-        passWord: data.passWord,
-        level: data.level,
-        fullName: data.fullName,
-        avatar: data.avatar,
+        id: actions.userData[0].id,
+        img: actions.userData[0].img,
+        ten: actions.userData[0].ten,
+        level: actions.userData[0].level,
+        created: actions.userData[0].created,
+        message: actions.userData[0].message,
+        ma_user: actions.userData[0].ma_user,
+        updated: actions.userData[0].updated,
+        password: actions.userData[0].password,
+        chucdanh: actions.userData[0].chucdanh,
+        username: actions.userData[0].username,
+        shortName: actions.userData[0].shortName,
+        trangthai: actions.userData[0].trangthai,
         message: 'Login Success'
       };
 
     case LOGGED_IN_ERROR:
       return { ...state, ...initialState, message: 'Login Error' };
 
-    case LOGGED_OUT_REQUEST:
-      return { ...state, ...initialState };
-  
     default:
       return state;
   }
